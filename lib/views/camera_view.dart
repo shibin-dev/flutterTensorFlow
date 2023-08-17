@@ -16,12 +16,13 @@ class CameraView extends StatelessWidget {
           // stream: null,
           init: ScanController(),
           builder: (controller) {
-           
-            return controller.isCameraInitialized.value
-                ? CameraPreview(controller.cameraController)
-                : const Center(
-                    child: Text("Loding Previw.."),
-                  );
+            return
+                // controller.isCameraInitialized.value
+                //     ?
+                CameraPreview(controller.cameraController);
+            // : const Center(
+            //     child: Text("Loding Previw.."),
+            //   );
           }),
     );
   }
