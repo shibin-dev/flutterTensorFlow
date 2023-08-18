@@ -16,10 +16,39 @@ class CameraView extends StatelessWidget {
           // stream: null,
           init: ScanController(),
           builder: (controller) {
+            // log(controller);
+            // log(controller);
+            // log(controller.y);
+            // log(controller.h);
             return
                 // controller.isCameraInitialized.value
                 //     ?
-                CameraPreview(controller.cameraController);
+                Stack(
+              children: [
+                CameraPreview(controller.cameraController),
+                Positioned(
+                  top: 700,
+                  right: 500,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2,
+
+                    height: MediaQuery.of(context).size.height / 2,
+                    // width: controller.w * 100 * context.widget / 100,
+                    // height: controller.h * 100 * context.height / 100,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.green, width: 4)),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                            color: Colors.white, child: Text(controller.label))
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            );
             // : const Center(
             //     child: Text("Loding Previw.."),
             //   );

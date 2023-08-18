@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:camera/camera.dart';
 import 'package:flutter_tflite/flutter_tflite.dart';
@@ -24,6 +23,8 @@ class ScanController extends GetxController {
   late List<CameraDescription> cameras;
   var isCameraInitialized = false.obs;
   var cameraCount = 0;
+  var x, y, w, h = 0.0;
+  var label = '';
   initCamera() async {
     if (await Permission.camera.request().isGranted) {
       cameras = await availableCameras();
@@ -70,7 +71,15 @@ class ScanController extends GetxController {
         rotation: 90,
         threshold: 0.4);
     if (detector != null) {
-      log("Result is $detector");
+      var ourDetectedObject = detector.first;
+      if (ourDetectedObject['confidenceInClass'] * 100 > 45) {
+        label = detector.first['detectedClass'].toString();
+        h = ourDetectedObject['react']['h'];
+        w = ourDetectedObject['react']['w'];
+        x = ourDetectedObject['react']['x'];
+        y = ourDetectedObject['react']['y'];
+      }
+      update();
     }
   }
 }
